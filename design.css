@@ -1,0 +1,31 @@
+# Importing necessary libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# Load your dataset (assuming it's in a CSV file)
+data = pd.read_csv('your_dataset.csv')
+
+# Preprocessing data (feature selection, handling missing values, etc.)
+# ... (Code for data preprocessing)
+
+# Splitting data into training and testing sets
+X = data.drop('fraudulent_column', axis=1)  # Features
+y = data['fraudulent_column']  # Target variable
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Creating and training the model (Random Forest Classifier in this case)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# Making predictions
+predictions = model.predict(X_test)
+
+# Evaluating the model
+accuracy = accuracy_score(y_test, predictions)
+conf_matrix = confusion_matrix(y_test, predictions)
+
+print(f"Accuracy: {accuracy}")
+print(f"Confusion Matrix:\n {conf_matrix}")
